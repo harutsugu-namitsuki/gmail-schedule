@@ -1,0 +1,13 @@
+{
+  "keywords": [
+    "マッキンゼー",
+    "McKinsey",
+    "ボスコン",
+    "BCG",
+    "Boston Consulting",
+    "ボストンコンサルティング"
+  ],
+  "search_period_hours": 24,
+  "max_emails": 30,
+  "max_links_per_email": 5
+}

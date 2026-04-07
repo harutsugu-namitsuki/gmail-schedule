@@ -1,0 +1,29 @@
+{
+  "test_urls": [
+    {
+      "domain": "mckinsey.com",
+      "test_url": "https://www.mckinsey.com/featured-insights",
+      "expected": "記事一覧ページ。タイトルと概要が取得できるはず"
+    },
+    {
+      "domain": "bcg.com",
+      "test_url": "https://www.bcg.com/publications",
+      "expected": "パブリケーション一覧。タイトルと概要が取得できるはず"
+    },
+    {
+      "domain": "hbr.org",
+      "test_url": "https://hbr.org/",
+      "expected": "ペイウォールあり。冒頭のみ取得可能の可能性"
+    },
+    {
+      "domain": "ft.com",
+      "test_url": "https://www.ft.com/",
+      "expected": "ペイウォールあり。取得不可の可能性が高い"
+    },
+    {
+      "domain": "nikkei.com",
+      "test_url": "https://www.nikkei.com/",
+      "expected": "一部記事はペイウォール。無料記事は取得可能"
+    }
+  ]
+}
