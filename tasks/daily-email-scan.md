@@ -4,7 +4,7 @@
 
 ### 匿名化ルール
 
-以下の情報は、レポートのいかなる箇所にも**絶対に記載してはならない**。
+以下の情報は、レポート・インサイトファイルのいかなる箇所にも**絶対に記載してはならない**。
 発見した場合は `[REDACTED]` に置換すること。
 
 - タスク実行者のメールアドレス（すべてのメールアドレス形式を対象）
@@ -27,28 +27,39 @@
 
 ### 手順1：設定ファイルの読み込み
 
-- `config/search-keywords.json` を読み込む
-- `templates/report-template.md` を読み込む
+以下のファイルをすべて読み込む：
+
+- `config/search-keywords.json` — 検索キーワード・カテゴリ設定
+- `config/insight-config.json` — インサイト生成設定
+- `config/domain-access-levels.json` — ドメイン別アクセスレベル
+- `templates/report-template.md` — 日次レポートの出力フォーマット
+- `templates/insight-universal.md` — インサイトファイルの出力フォーマット
 
 ### 手順2：メール検索
 
 - Gmail コネクタを使用して受信箱を検索する
 - 検索条件：
   - 期間：過去 `search_period_hours` 時間以内
-  - キーワード：`keywords` 配列のいずれかを件名または本文に含む
+  - キーワード：`keyword_groups` 内の全 `keywords` を検索対象とする
   - 最大件数：`max_emails` 件
 - 該当メールが0件の場合：
   「該当メールなし」のレポートを生成して終了
 
-### 手順3：メール本文の取得と要約
+### 手順3：メール本文の取得と分析
 
-- 各メールについて以下を抽出：
-  - 送信者の表示名（メールアドレスは記載しない）
-  - 件名
-  - 受信日時
-  - 本文の要約（5行以内）
-  - マッキンゼー/BCGに関連する具体的な情報
-    （人事異動、レポート公開、イベント案内、業界分析など）
+各メールについて以下を抽出・分析する：
+
+- 送信者の表示名（メールアドレスは記載しない）
+- 件名
+- 受信日時
+- 本文の要約（5行以内）
+- **カテゴリ判定**：`search-keywords.json` の `keyword_groups` を参照し、
+  メール内容にヒットしたキーワードが属する `category` を特定する。
+  複数カテゴリにヒットした場合は、最も関連性の高い1つを主カテゴリとする。
+- **重要度判定**：以下の基準で `High / Medium / Low` を付与する。
+  - **High**：市場を動かし得るM&A・大型提携・規制変更・主要レポート公開
+  - **Medium**：人事異動・イベント案内・業界トレンド分析
+  - **Low**：マーケティングメール・定例案内・重複情報
 
 ### 手順4：リンク先の調査
 
@@ -91,17 +102,57 @@
 - レポート末尾の「改善メモ」セクションに
   「新規ドメイン検出：[ドメイン名] → アクセスレベル要分類」と記載する
 
-### 手順5：レポート生成
+### 手順5：日次レポート生成
 
-- `templates/report-template.md` のフォーマットに従ってレポートを生成
+- `templates/report-template.md` のフォーマットに**厳密に**従ってレポートを生成する
+- 各セクションの生成ルール：
+
+#### セクション1: Executive Summary（最重要インサイト）
+- 手順3で分析した全メールの中から、**最も重要度の高いトレンド3つ**を選定する
+- 各トレンドについて「事実（What）」だけでなく「示唆（So What?）」を必ず併記する
+- 示唆は「我々のビジネスやクライアントにどう影響し得るか」の観点で記述する
+
+#### セクション2: Actionable Recommendations
+- セクション1のインサイトに基づき、コンサルタント（読者）が取るべき**具体的な打ち手の仮説**を2〜3件提示する
+- 「誰に」「何を」「なぜ今」の3点を明確にする
+
+#### セクション3: Strategic Categorization
+- 手順3で判定したカテゴリに基づき、情報を以下の3つのテーマに分類して記載する：
+  - **A. Market & Competitors** — `category: "Competitor"` に該当する情報
+  - **B. Client & Industry Signals** — `category: "Client"` または `category: "Market"` に該当する情報
+  - **C. Tech, AI & Data Governance** — `category: "Technology"` または `category: "Regulation"` に該当する情報
+- 各トピックは1〜2行で端的に要約し、ソース（メール件名やリンク先タイトル）を明記する
+
+#### セクション4: Raw Data & Deep Dive
+- `<details>` タグ内に、手順3・4で取得した全メールの詳細データを格納する
+- 各メールには重要度（High/Med/Low）を付記する
+
 - ファイル名：`reports/YYYY-MM-DD-consulting-digest.md`
 - 生成後、**匿名化ルールに違反する記載がないか自己チェック**を行う
 - 違反があれば `[REDACTED]` に置換してから保存
 
-### 手順6：リポジトリへのpush
+### 手順6：インサイトファイル生成
+
+`config/insight-config.json` の `enabled` が `true` の場合、以下を実行する。
+
+- 手順3・4で分析した情報の中から、重要度が `min_priority_to_save` 以上のものを抽出する
+- 抽出した各トピックについて、`templates/insight-universal.md` のフォーマットに従い、
+  **1インサイト＝1ファイル**として個別に生成する
+- 生成ルール：
+  - **YAML Frontmatter**：`title`, `date`, `status`(="未使用"), `category`, `priority`,
+    `tags`, `industry`, `firms`, `use_case`, `source_title`, `source_url` を正確に記入
+  - **インサイト（So What?）**：事実からコンサルタントが活用できる示唆を2〜3文で記述
+  - **ファクト（What happened?）**：裏付けとなる一次情報を箇条書きで記載
+  - **提案活用仮説**：このインサイトを具体的にどんな提案に転用できるかの仮説
+  - **ナレッジリンク（Obsidian用）**：YAML内の `tags`, `firms`, `industry` の値を
+    `[[キーワード]]` 形式で本文末尾にも記載する
+- ファイル名：`insights/YYYY-MM-DD-[連番3桁].md`（例：`insights/2026-04-13-001.md`）
+- 1日あたりの生成上限：`max_insights_per_day` 件
+
+### 手順7：リポジトリへのpush
 
 - `claude/` ブランチにcommit & push
-- コミットメッセージ：`[auto] daily consulting digest YYYY-MM-DD`
+- コミットメッセージ：`[auto] daily digest + [N] insights YYYY-MM-DD`
 
 ## エラー時の動作
 
@@ -110,3 +161,5 @@
   空のレポートを生成してpushする（失敗の記録を残す）
 - WebFetch に失敗した場合：
   該当リンクのみスキップし、他の処理は続行する
+- インサイトファイル生成に失敗した場合：
+  レポートは正常にpushし、エラーをコミットメッセージに付記する

@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "max_insights_per_day": 5,
+  "min_priority_to_save": "Medium",
+  "output_dir": "insights",
+  "template": "templates/insight-universal.md",
+  "categories": ["Market", "Competitor", "Technology", "Regulation", "Client"]
+}

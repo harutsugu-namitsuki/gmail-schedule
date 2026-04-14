@@ -2,12 +2,12 @@
 
 ## このリポジトリの目的
 
-毎朝、Gmailの受信箱からマッキンゼー・BCG等のコンサルティングファームに関連するメールを自動検索し、リンク先記事も含めた日次ダイジェストレポートを生成する。
+毎朝、Gmailの受信箱からコンサルティングファーム・テック業界に関連するメールを自動検索し、リンク先記事も含めた**戦略的インテリジェンスレポート**と**個別インサイトファイル（提案ネタDB）**を生成する。
 
 ## 絶対遵守ルール
 
 ### 匿名化
-- タスク実行者の氏名・メールアドレスをレポートに記載しない
+- タスク実行者の氏名・メールアドレスをレポート・インサイトファイルに記載しない
 - 発見した場合は `[REDACTED]` に置換する
 
 ### セキュリティ
@@ -20,12 +20,15 @@
 | パス | 役割 |
 |---|---|
 | `tasks/daily-email-scan.md` | タスク定義（スケジュールタスクの実行本体） |
-| `config/search-keywords.json` | 検索キーワード・件数上限の設定 |
+| `config/search-keywords.json` | 検索キーワード・カテゴリ設定 |
+| `config/insight-config.json` | インサイト生成の有効/無効・上限設定 |
 | `config/domain-access-levels.json` | ドメイン別WebFetchアクセス可否 |
 | `config/test-domains.json` | 初回テスト・再テスト用ドメインリスト |
-| `config/domain-test-results.md` | WebFetchテスト結果（手動テスト後に生成） |
-| `templates/report-template.md` | レポートの出力フォーマット |
-| `reports/` | 自動生成されたレポートの格納先 |
+| `templates/report-template.md` | 日次レポートの出力フォーマット |
+| `templates/insight-universal.md` | インサイトファイルの出力フォーマット |
+| `reports/` | 日次レポートの格納先（自動生成） |
+| `insights/` | インサイトファイルの格納先（自動生成） |
+| `docs/` | 設計書・運用ドキュメント |
 
 ## スケジュールタスクのプロンプト（コピー用）
 
@@ -33,9 +36,18 @@
 リポジトリ内の `tasks/daily-email-scan.md` を読み込み、
 そこに記載された手順に**厳密に**従って実行してください。
 
-設定ファイル: `config/search-keywords.json`
-テンプレート: `templates/report-template.md`
-出力先: `reports/` ディレクトリ
+設定ファイル:
+- `config/search-keywords.json`
+- `config/insight-config.json`
+- `config/domain-access-levels.json`
+
+テンプレート:
+- `templates/report-template.md`
+- `templates/insight-universal.md`
+
+出力先:
+- `reports/` ディレクトリ（日次レポート）
+- `insights/` ディレクトリ（インサイトファイル）
 
 特に「絶対遵守事項」セクションの匿名化ルールと
 セキュリティルールは必ず守ってください。
@@ -44,6 +56,7 @@
 ## 設定変更のやり方
 
 - **キーワード追加**: `config/search-keywords.json` を編集してpush
+- **インサイト生成の設定変更**: `config/insight-config.json` を編集してpush
 - **タスク動作変更**: `tasks/daily-email-scan.md` を編集してpush
 - **ドメイン分類更新**: `config/domain-access-levels.json` を編集してpush
 - スケジュールタスクのプロンプト欄は変更不要
