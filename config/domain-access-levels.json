@@ -1,15 +1,14 @@
 {
   "full_access": [
-    "mckinsey.com",
-    "bcg.com",
     "bcghendersoninstitute.com"
   ],
-  "partial_access": [
-    "hbr.org",
-    "nikkei.com"
-  ],
+  "partial_access": [],
   "no_access": [
+    "mckinsey.com",
+    "bcg.com",
+    "hbr.org",
     "ft.com",
+    "nikkei.com",
     "wsj.com",
     "bloomberg.com"
   ]
