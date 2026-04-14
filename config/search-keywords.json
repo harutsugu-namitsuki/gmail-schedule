@@ -1,19 +1,11 @@
 {
-  "keyword_groups": [
-    {
-      "category": "Competitor",
-      "label": "競合ファーム動向",
-      "keywords": [
-        "マッキンゼー",
-        "McKinsey",
-        "ボスコン",
-        "BCG",
-        "Boston Consulting",
-        "ボストンコンサルティング"
-      ]
-    }
+  "sender_emails": [
+    "publishing@email.mckinsey.com",
+    "bostonconsultinggroup@bcg.com",
+    "bhi@bcg.com",
+    "bcgcontactus@bcg.com"
   ],
+
   "search_period_hours": 24,
-  "max_emails": 30,
-  "max_links_per_email": 5
+  "max_links_per_email": 10
 }

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Users/YuenongMei\\(梅月濃\\)/OneDrive - 株式会社Dirbato/ドキュメント/GitHub/gmail-schedule\" mv \"templates/ナレッジベース検討資料\" \"docs/knowledge-base/検討資料\")",
+      "Bash(git status:*)"
+    ]
+  }
+}
