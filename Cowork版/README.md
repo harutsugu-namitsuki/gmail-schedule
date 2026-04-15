@@ -106,7 +106,7 @@
 ## 運用ステータス
 
 - 実行基盤: **Cowork スケジュールタスク**（Claude Desktop / Desktop local task）
-- 実行環境: **ユーザーの Mac**（Claude Desktop 起動中）
+- 実行環境: **ユーザーの Windows PC**（Claude Desktop 起動中）
 - Gmailアクセス: Gmail コネクター（read-only / 第1層）
 - 記事取得: **Chrome ブラウザ操作**（Claude in Chrome / 第2層）→ Computer Use（第3層・フォールバック）
 - 出力先: ローカル `reports/` および `insights/` → GitHub push

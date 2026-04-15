@@ -10,21 +10,6 @@
       "domain": "bcg.com",
       "test_url": "https://www.bcg.com/publications",
       "expected": "Publications 一覧。Chrome経由で取得成功を期待"
-    },
-    {
-      "domain": "hbr.org",
-      "test_url": "https://hbr.org/",
-      "expected": "HBRトップページ。Chrome経由 + ログイン済みなら無料枠記事は取得可能のはず"
-    },
-    {
-      "domain": "ft.com",
-      "test_url": "https://www.ft.com/",
-      "expected": "FTトップページ。有料購読があればログイン済みセッションで本文取得可能のはず"
-    },
-    {
-      "domain": "nikkei.com",
-      "test_url": "https://www.nikkei.com/",
-      "expected": "日経トップ。有料購読があればログイン済みセッションで本文取得可能のはず"
     }
   ],
   "layer_2_article_urls": [
@@ -35,18 +20,6 @@
     {
       "domain": "bcg.com",
       "note": "検証時点の最新 Publication 記事URLを1本選定して記入する。例: https://www.bcg.com/publications/2026/..."
-    },
-    {
-      "domain": "hbr.org",
-      "note": "検証時点の最新 HBR 記事URLを1本選定して記入する。例: https://hbr.org/2026/04/..."
-    },
-    {
-      "domain": "ft.com",
-      "note": "検証時点の任意の FT 記事URLを1本選定して記入する。例: https://www.ft.com/content/..."
-    },
-    {
-      "domain": "nikkei.com",
-      "note": "検証時点の任意の日経記事URLを1本選定して記入する。例: https://www.nikkei.com/article/..."
     }
   ],
   "layer_3_real_email_urls": {

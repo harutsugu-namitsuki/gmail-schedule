@@ -1,10 +1,13 @@
 {
-  "sender_emails": [
-    "publishing@email.mckinsey.com",
-    "bostonconsultinggroup@bcg.com",
-    "bhi@bcg.com",
-    "bcgcontactus@bcg.com"
+  "_comment": "Gmail検索用の送信者設定。ホワイトリスト方式が「未登録の送信者を取り逃す」という2026-04-15の事故を受けて、ドメイン単位マッチに切り替えた。BCGからは bostonconsultinggroup@ 以外にも noreply-okta@ 等の業務連絡ドメインが存在し、ホワイトリストだと漏れる。",
+
+  "sender_domains": [
+    "bcg.com",
+    "email.mckinsey.com"
   ],
+
+  "sender_emails_extra": [],
+  "exclude_senders": [],
 
   "search_period_hours": 24,
   "max_links_per_email": 10

@@ -4,7 +4,15 @@
 # ═══════════════════════════════════════════
 
 title: "[インサイトのタイトル（1行で端的に）]"
-date: "[YYYY-MM-DD]"
+
+# ───── 追跡用タイムスタンプ（必須） ─────
+# いつ取り込んだインサイトかを後から追えるようにするため、
+# date（論理日付）とは別に captured_at（取込時刻）を明示する。
+date: "[YYYY-MM-DD]"                    # インサイトの論理日付（通常は元メールの受信日）
+captured_at: "[YYYY-MM-DDTHH:MM:SS+09:00]"  # タスクが本インサイトを生成した実時刻（JST, ISO8601）
+source_run_id: "[YYYY-MM-DD-consulting-digest]"  # 同日の日次レポートへの逆引きキー
+# ─────────────────────────────────────
+
 status: "未使用"            # NotionのSelect用 / Obsidian検索用
 
 # プラクティス軸カテゴリ（日次レポート セクション3と同じ8分類）
@@ -34,14 +42,22 @@ firms:
 use_case: "[コンサル提案の想定シーン]"
 
 # 情報源（複数可）— メール本体と、その中で参照した記事URLを並列に記載
+# 追跡用のタイムスタンプも必ず記録する
 sources:
   - type: "email"
     title: "[元メール件名]"
     publisher: "[送信元の組織名のみ]"
+    sender_domain: "[bcg.com / email.mckinsey.com など]"  # 特定アドレスは匿名化
+    received_at: "[YYYY-MM-DDTHH:MM:SS+09:00]"  # Gmail の受信タイムスタンプ（JST, ISO8601）
+    gmail_message_id: "[Gmail 内部ID（あれば。匿名化対象外）]"
   - type: "article"
     title: "[リンク先記事タイトル]"
     url: "[URL]"
     publisher: "[発行元]"
+    fetched_at: "[YYYY-MM-DDTHH:MM:SS+09:00]"  # Chrome/Computer Use で取得した実時刻
+    access_method: "[chrome_browser | computer_use | manual | failed]"
+    extraction_method: "[html_part | gmail_dom | plain_text_regex]"  # タスク定義 手順4-1 の分岐
+    access_level: "[full_access | partial_access | no_access]"      # domain-access-levels.json 基準
 
 # 本インサイトで押さえるべき英単語（日次レポート セクション5から引き継ぐ）
 key_english_terms:
