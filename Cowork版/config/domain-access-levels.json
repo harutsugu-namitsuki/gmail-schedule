@@ -1,0 +1,8 @@
+{
+  "_comment": "本ファイルは前提検証テスト手順書.md §4 の実測結果で初期化する。初期値は全ドメイン未分類（空配列）。前提検証を実施せずに運用開始してはならない。",
+  "_last_verified": null,
+  "_verification_method": "Chrome ブラウザ操作（Claude in Chrome）+ ユーザーのログイン済みセッション",
+  "full_access": [],
+  "partial_access": [],
+  "no_access": []
+}

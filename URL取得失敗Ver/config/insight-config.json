@@ -1,0 +1,22 @@
+{
+  "enabled": true,
+  "max_insights_per_day": 5,
+  "min_priority_to_save": "Medium",
+  "output_dir": "insights",
+  "template": "templates/insight-universal.md",
+  "practices": [
+    "A_Strategy_CorpFinance",
+    "B_Operations_SupplyChain",
+    "C_Growth_MarketingSales",
+    "D_People_Organization",
+    "E_Technology_Digital_AI",
+    "F_Risk_Resilience_Regulation",
+    "G_Sustainability_EnergyTransition",
+    "H_Industry_Spotlight"
+  ],
+  "c_suite_tags": [
+    "CEO", "CFO", "COO", "CIO", "CTO", "CMO", "CHRO", "CRO", "CLO", "CSO"
+  ],
+  "english_highlights_per_report": 10,
+  "categories": ["Market", "Competitor", "Technology", "Regulation", "Client"]
+}

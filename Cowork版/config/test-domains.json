@@ -1,0 +1,56 @@
+{
+  "description": "Chrome ブラウザ操作（Claude in Chrome）経由でのドメイン到達性テスト用URL。前提検証テスト手順書.md §3 の3層構造で使用する。",
+  "layer_1_top_pages": [
+    {
+      "domain": "mckinsey.com",
+      "test_url": "https://www.mckinsey.com/featured-insights",
+      "expected": "Featured Insights 一覧ページ。Chrome経由ではBot判定を回避してタイトルと概要が取得できるはず"
+    },
+    {
+      "domain": "bcg.com",
+      "test_url": "https://www.bcg.com/publications",
+      "expected": "Publications 一覧。Chrome経由で取得成功を期待"
+    },
+    {
+      "domain": "hbr.org",
+      "test_url": "https://hbr.org/",
+      "expected": "HBRトップページ。Chrome経由 + ログイン済みなら無料枠記事は取得可能のはず"
+    },
+    {
+      "domain": "ft.com",
+      "test_url": "https://www.ft.com/",
+      "expected": "FTトップページ。有料購読があればログイン済みセッションで本文取得可能のはず"
+    },
+    {
+      "domain": "nikkei.com",
+      "test_url": "https://www.nikkei.com/",
+      "expected": "日経トップ。有料購読があればログイン済みセッションで本文取得可能のはず"
+    }
+  ],
+  "layer_2_article_urls": [
+    {
+      "domain": "mckinsey.com",
+      "note": "検証時点の最新 Featured Insights 記事URLを1本選定して記入する。例: https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/..."
+    },
+    {
+      "domain": "bcg.com",
+      "note": "検証時点の最新 Publication 記事URLを1本選定して記入する。例: https://www.bcg.com/publications/2026/..."
+    },
+    {
+      "domain": "hbr.org",
+      "note": "検証時点の最新 HBR 記事URLを1本選定して記入する。例: https://hbr.org/2026/04/..."
+    },
+    {
+      "domain": "ft.com",
+      "note": "検証時点の任意の FT 記事URLを1本選定して記入する。例: https://www.ft.com/content/..."
+    },
+    {
+      "domain": "nikkei.com",
+      "note": "検証時点の任意の日経記事URLを1本選定して記入する。例: https://www.nikkei.com/article/..."
+    }
+  ],
+  "layer_3_real_email_urls": {
+    "note": "実運用の Gmail 受信箱から、publishing@email.mckinsey.com または bostonconsultinggroup@bcg.com の最新メールを1件開き、本文中のリンクを1つ選んで検証する。リダイレクタURL（email.mckinsey.com/c/eJx... 等）を含めて最終記事ページに到達できるかを確認する。"
+  },
+  "lessons_from_previous_failure": "前回は Layer 1 相当（トップページ1URL/ドメイン）のみで検証し、0/5 で崩壊した。その際の失敗モードは『Anthropic Cloud からの fetch → WAF で HTTP 403』。今回は Chrome 実ブラウザ経由のため User-Agent が通常ユーザーと同じになるはずで、結果が異なる見込み。ただし『見込み』ではなく『実測』で確認する。"
+}
