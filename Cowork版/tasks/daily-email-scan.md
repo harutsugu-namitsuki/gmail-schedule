@@ -6,7 +6,7 @@
 
 - [前提検証テスト手順書.md](../前提検証テスト手順書.md) が PASS 済み
 - Claude Desktop の Settings で Computer use が ON、Keep computer awake が ON
-- Chrome に Claude in Chrome 拡張機能がインストール済み
+- Chrome に Claude in Chrome 拡張機能がインストール済み、かつ **「Connected」状態であること**（`⚠️ Claude in Chrome is not connected` と表示される場合はタスクを実行しない。手順書 STEP 1-4 の再接続手順を先に実施すること）
 - 対象サイト（McKinsey / BCG）に Chrome で手動ログイン済み
 - **Chrome で Gmail（mail.google.com）にもログイン済み**（HTMLリンク抽出のフォールバック経路として必要）
 - 初回の手動実行（Run now）で Gmail・Chrome・git 等すべての権限に Always allow 済み
@@ -105,6 +105,7 @@
 
 1. **第一選択: Gmail コネクターから HTML パートを取得**
    - Gmail コネクターの読み取り API に対して、プレーンテキスト `body` ではなく **MIME `text/html` パート**（`payload.parts[].body.data` のうち `mimeType == "text/html"` のもの）を要求する
+   - ⚠️ **制限**: Gmail MCP コネクターが返す `body` はプレーンテキストのみの場合がある（2026-04-15 実績）。この場合 `<a href="...">` 情報は取れない。HTML パートを要求しても空の場合は**即座に第二選択へフォールバック**する。改善メモに「Gmail コネクターが HTML パートを返しませんでした → Gmail DOM スクレイピングを使用」と記録する
    - 取得した HTML を DOM として解釈し、`<a href="...">` の全てを抽出する。`href` 値とアンカーテキスト（記事タイトル）をペアで保持する
    - リダイレクタURL（`email.mckinsey.com/c/eJx...` / `click.bcg.com/...` 等）はそのまま抽出対象とする。最終URLへの遷移は手順 4-3 の Chrome ブラウザ操作フェーズで行う
    - 抽出したURLのうち、`unsubscribe` / `mailto:` / `tel:` / `#` で始まるもの、および送信元ドメインのトップページのみのものは除外する

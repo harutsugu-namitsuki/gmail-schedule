@@ -126,7 +126,7 @@ Cowork は以下の優先順位でツールを選択する：
 
 ## 設定変更のやり方
 
-- **送信者アドレス追加・変更**: `config/search-keywords.json` の `sender_emails` を編集してpush
+- **送信者ドメイン追加・変更**: `config/search-keywords.json` の `sender_domains` を編集してpush（個別アドレスの追加は `sender_emails_extra` を使う）
 - **インサイト生成の設定変更**: `config/insight-config.json` を編集してpush
 - **タスク動作変更**: `tasks/daily-email-scan.md` を編集してpush
 - **ドメイン分類更新**: `config/domain-access-levels.json` を編集してpush（**ただし実測結果に基づくこと**）
