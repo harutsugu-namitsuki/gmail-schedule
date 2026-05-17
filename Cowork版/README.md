@@ -1,6 +1,6 @@
 # gmail-schedule（Cowork + Computer Use 版）
 
-トップファーム（マッキンゼー・BCG等）からのメールとメール内リンク先記事を毎朝自動で取得し、**戦略的インテリジェンスレポート（日次）**と**インサイトDB（提案ネタの永続ストック）**を生成する、**Claude Cowork スケジュールタスク（Desktop local task）** 用リポジトリ。
+トップファーム（マッキンゼー・BCG等）からのメールとメール内リンク先記事を毎朝自動で取得し、**戦略的インテリジェンスレポート（日次）**と**インサイトDB（提案ネタの永続ストック）**を生成する、**Claude Cowork クラウド実行（ルーティン）** 用リポジトリ。
 
 競合動向の追跡ではなく、**「トップファームの知的アウトプットから何を学べるか」を自己研鑽の観点で抽出する**ことを目的とする。
 
@@ -105,9 +105,8 @@
 
 ## 運用ステータス
 
-- 実行基盤: **Cowork スケジュールタスク**（Claude Desktop / Desktop local task）
-- 実行環境: **ユーザーの Windows PC**（Claude Desktop 起動中）
+- 実行基盤: **Cowork クラウド実行（ルーティン）** — GitHub 接続済みであれば端末起動不要
 - Gmailアクセス: Gmail コネクター（read-only / 第1層）
-- 記事取得: **Chrome ブラウザ操作**（Claude in Chrome / 第2層）→ Computer Use（第3層・フォールバック）
-- 出力先: ローカル `reports/` および `insights/` → GitHub push
+- 記事取得: **Chrome ブラウザ操作**（Claude in Chrome / 第2層）→ Computer Use（第3層・フォールバック） — 端末起動時のみ
+- 出力先: `reports/` および `insights/` → GitHub push
 - 前提検証: **初回 + 月次**（[前提検証テスト手順書.md](前提検証テスト手順書.md)）
